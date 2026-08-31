@@ -12,9 +12,7 @@ process.env.VERCEL_ENV ||= 'development';
 process.env.LOCAL_DB ||= '1';
 
 const apiRoutes = [
-  { match: p => p === '/api/auth/login' && {}, file: './api/auth/login' },
-  { match: p => p === '/api/auth/logout' && {}, file: './api/auth/logout' },
-  { match: p => p === '/api/auth/me' && {}, file: './api/auth/me' },
+  { match: p => dynamicParam(p, /^\/api\/auth\/(login|logout|me)$/, 'action'), file: './api/auth/[action]' },
   { match: p => p === '/api/admin/test-deposit' && {}, file: './api/admin/test-deposit' },
   { match: p => p === '/api/admin/upload-url' && {}, file: './api/admin/upload-url' },
   { match: p => p === '/api/admin/conversion-quote' && {}, file: './api/admin/conversion-quote' },
