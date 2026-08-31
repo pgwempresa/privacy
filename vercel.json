@@ -1,4 +1,7 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": null,
   "rewrites": [
     { "source": "/", "destination": "/login.html" },
     { "source": "/m/:slug", "destination": "/m.html?slug=:slug" },
