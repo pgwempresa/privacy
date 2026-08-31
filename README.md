@@ -15,7 +15,7 @@ Checkout multi-idioma com painel administrativo, páginas públicas por modelo e
 
 ## Rodar localmente
 
-Requer Node.js 20 ou superior.
+Requer Node.js 24.
 
 ```bash
 npm install
