@@ -151,6 +151,44 @@ test('deposit endpoint maps valid SPEI and OXXO instructions', async (t) => {
     assert.equal(res.body.gateway.reference, 'REF123456');
   });
 
+  await t.test('SPEI accepts a valid CLABE when XPag leaves reference empty', async () => {
+    const handler = loadHandler({
+      createSpei: async () => ({
+        ok: true,
+        status: 200,
+        body: {
+          ok: true,
+          clabe: '734180009431691385',
+          reference: '',
+          request_number: 'pr-empty-reference',
+          transaction_id: 'pr-empty-reference',
+          bank_name: 'Finco Pay',
+          beneficiary: 'Zypher Servicos',
+          amount: 99,
+          status: 'pending'
+        }
+      }),
+      createOxxo: async () => { throw new Error('not expected'); }
+    });
+    const res = response();
+    await handler({
+      method: 'POST',
+      headers: { host: '127.0.0.1:3000' },
+      body: {
+        amount: 99,
+        method: 'spei',
+        currency: 'MXN',
+        model_slug: 'mexico-demo',
+        reference: '1 mes',
+        payer: { name: 'Juan', email: 'juan@example.com', document: 'PEPJ800101HDFRRL09' }
+      }
+    }, res);
+    assert.equal(res.statusCode, 201);
+    assert.equal(res.body.gateway.clabe, '734180009431691385');
+    assert.equal(res.body.gateway.reference, '');
+    assert.equal(res.body.gateway.transaction_id, 'pr-empty-reference');
+  });
+
   await t.test('OXXO exposes payee_data reference and barcode', async () => {
     const handler = loadHandler({
       createSpei: async () => { throw new Error('not expected'); },

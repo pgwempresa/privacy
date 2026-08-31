@@ -256,14 +256,17 @@ module.exports = async (req, res) => {
       const speiReference = String(xpagBody.reference || '').trim();
       const oxxoReference = String(payeeData.reference || '').trim();
 
-      if (method === 'spei' && (!/^\d{18}$/.test(speiClabe) || !speiReference)) {
+      // Some enabled MXN accounts return a sale-specific 18-digit CLABE with
+      // an empty `reference`. The CLABE is the actual payment instrument; the
+      // transaction_id/request_number still reconciles the webhook.
+      if (method === 'spei' && !/^\d{18}$/.test(speiClabe)) {
         await updateDeposit(deposit.id, {
           status: 'DECLINED',
           raw_create_response: xpagBody
         });
         return res.status(502).json({
           error: 'invalid SPEI response',
-          message: 'XPag did not return a valid 18-digit CLABE and reference'
+          message: 'XPag did not return a valid 18-digit CLABE'
         });
       }
       if (method === 'oxxo' && !oxxoReference) {
