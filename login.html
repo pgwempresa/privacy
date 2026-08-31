@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login · Privacy</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body class="admin-body">
+  <main class="login-main">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="logo-mount" aria-label="Privacy"></span>
+        <span class="admin-pill">Admin</span>
+      </div>
+
+      <h1 class="login-title">Entrar no painel</h1>
+      <p class="login-subtitle">Acesse sua conta administrativa.</p>
+
+      <form id="loginForm" class="login-form" autocomplete="off">
+        <div class="form-field" style="margin-top:0">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" name="username" autocomplete="username" required />
+        </div>
+
+        <div class="form-field">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+
+        <div id="loginError" class="login-error" hidden></div>
+
+        <button type="submit" id="loginBtn" class="btn-submit">
+          <span class="btn-label">Entrar</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script src="/js/logo.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

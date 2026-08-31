@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integrações · Privacy</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css?v=8" />
+  <link rel="stylesheet" href="/css/admin.css?v=9" />
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="/admin" class="logo" aria-label="Privacy">
+        <span class="logo-mount"></span>
+        <span class="admin-pill">Admin</span>
+      </a>
+      <nav class="admin-nav">
+        <a href="/admin">Modelos</a>
+        <a href="/admin/integracoes" class="active">Integrações</a>
+      </nav>
+      <div class="admin-actions">
+        <button class="btn-ghost" id="logoutBtn" type="button">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-container">
+      <div class="page-head">
+        <div>
+          <h1 class="admin-title">Integrações</h1>
+          <p class="admin-subtitle">Conecte gateways de pagamento, rastreamento de conversões e outras ferramentas. Cada integração é configurada e salva independentemente.</p>
+        </div>
+      </div>
+
+      <div id="saveToast" class="save-toast" hidden></div>
+
+      <!-- ===================== Categoria: Gateways ===================== -->
+      <section class="integration-group">
+        <h2 class="integration-group-title">Gateways de pagamento</h2>
+        <p class="integration-group-sub">Processam as cobranças. Cada modelo escolhe qual usar no editor.</p>
+
+        <div class="integration-list">
+
+          <!-- ===================== WayMB ===================== -->
+          <article class="integration-card is-collapsed" data-integration="waymb">
+            <button type="button" class="integration-head" data-toggle aria-expanded="false">
+              <div class="integration-icon waymb-icon">W</div>
+              <div class="integration-meta">
+                <h2>WayMB</h2>
+                <p>MB Way e Multibanco (Portugal · EUR).</p>
+              </div>
+              <span class="integration-status" data-status="waymb">—</span>
+              <span class="integration-chevron" aria-hidden="true">▾</span>
+            </button>
+
+            <form class="integration-body" data-form="waymb" autocomplete="off">
+
+              <section class="integration-section">
+                <h3>Credenciais</h3>
+                <div class="form-grid">
+                  <div class="form-field" style="margin-top:0">
+                    <label for="waymbClientId">Client ID</label>
+                    <input type="text" id="waymbClientId" autocomplete="off" />
+                  </div>
+                  <div class="form-field" style="margin-top:0">
+                    <label for="waymbAccountEmail">Account email</label>
+                    <input type="email" id="waymbAccountEmail" autocomplete="off" />
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label for="waymbClientSecret">Client secret</label>
+                  <input type="password" id="waymbClientSecret" autocomplete="new-password" />
+                  <small class="hint">Pegue no painel da WayMB. Só admins veem.</small>
+                </div>
+              </section>
+
+              <section class="integration-section">
+                <h3>Webhooks de saída</h3>
+                <p class="integration-section-sub">Quando uma cobrança é criada ou paga, fazemos um <code>POST</code> JSON pra URL que você informar.</p>
+                <div class="form-field" style="margin-top:0">
+                  <label for="notifyCreated">URL para <strong>deposit_created</strong></label>
+                  <input type="url" id="notifyCreated" placeholder="https://seusistema.com/webhooks/privacy/created" />
+                </div>
+                <div class="form-field">
+                  <label for="notifyPaid">URL para <strong>deposit_paid</strong></label>
+                  <input type="url" id="notifyPaid" placeholder="https://seusistema.com/webhooks/privacy/paid" />
+                </div>
+              </section>
+
+              <section class="integration-section">
+                <h3>URLs do sistema</h3>
+                <p class="integration-section-sub"><code>callbackUrl</code> já é configurado automaticamente em cada transação — você não precisa colar nada no painel da WayMB.</p>
+                <div class="form-field" style="margin-top:0">
+                  <label>Webhook que recebe a WayMB</label>
+                  <div class="copy-row">
+                    <input type="text" id="waymbWebhookUrl" readonly />
+                    <button type="button" class="btn-ghost" data-copy="waymbWebhookUrl">Copiar</button>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label>Endpoint para criar cobranças</label>
+                  <div class="copy-row">
+                    <input type="text" id="createDepositUrl" readonly />
+                    <button type="button" class="btn-ghost" data-copy="createDepositUrl">Copiar</button>
+                  </div>
+                  <small class="hint">
+                    <code>POST</code> JSON: <code>{ amount, method: "mbway"|"multibanco", currency: "EUR", payer: { name, email, phone }, model_slug?, reference? }</code>
+                  </small>
+                </div>
+              </section>
+
+              <div class="integration-actions">
+                <button type="submit" class="btn-primary" data-save="waymb">Salvar WayMB</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- ===================== NexusPag ===================== -->
+          <article class="integration-card is-collapsed" data-integration="nexuspag">
+            <button type="button" class="integration-head" data-toggle aria-expanded="false">
+              <div class="integration-icon nexuspag-icon">N</div>
+              <div class="integration-meta">
+                <h2>NexusPag</h2>
+                <p>Pix (Brasil · BRL).</p>
+              </div>
+              <span class="integration-status" data-status="nexuspag">—</span>
+              <span class="integration-chevron" aria-hidden="true">▾</span>
+            </button>
+
+            <form class="integration-body" data-form="nexuspag" autocomplete="off">
+
+              <section class="integration-section">
+                <h3>Credenciais</h3>
+                <div class="form-field" style="margin-top:0">
+                  <label for="nexuspagApiKey">API Key (<code>x-api-key</code>)</label>
+                  <input type="password" id="nexuspagApiKey" autocomplete="new-password" placeholder="Cole a chave gerada no painel da NexusPag" />
+                  <small class="hint">Pegue no <a href="https://nexuspag.com" target="_blank" rel="noopener">painel da NexusPag</a>. Só admins veem.</small>
+                </div>
+              </section>
+
+              <section class="integration-section">
+                <h3>URLs do sistema</h3>
+                <p class="integration-section-sub">O <code>webhook_url</code> é configurado automaticamente em cada cobrança — você não precisa colar nada no painel da NexusPag.</p>
+                <div class="form-field" style="margin-top:0">
+                  <label>Webhook que recebe a NexusPag</label>
+                  <div class="copy-row">
+                    <input type="text" id="nexuspagWebhookUrl" readonly />
+                    <button type="button" class="btn-ghost" data-copy="nexuspagWebhookUrl">Copiar</button>
+                  </div>
+                </div>
+              </section>
+
+              <div class="integration-actions">
+                <button type="submit" class="btn-primary" data-save="nexuspag">Salvar NexusPag</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- ===================== XPag ===================== -->
+          <article class="integration-card is-collapsed" data-integration="xpag">
+            <button type="button" class="integration-head" data-toggle aria-expanded="false">
+              <div class="integration-icon xpag-icon">X</div>
+              <div class="integration-meta">
+                <h2>XPag</h2>
+                <p>SPEI, CLABE e OXXO (México · MXN).</p>
+              </div>
+              <span class="integration-status" data-status="xpag">—</span>
+              <span class="integration-chevron" aria-hidden="true">▾</span>
+            </button>
+
+            <form class="integration-body" data-form="xpag" autocomplete="off">
+              <section class="integration-section">
+                <h3>Credenciais</h3>
+                <div class="form-grid">
+                  <div class="form-field" style="margin-top:0">
+                    <label for="xpagClientId">Client ID</label>
+                    <input type="text" id="xpagClientId" autocomplete="off" />
+                  </div>
+                  <div class="form-field" style="margin-top:0">
+                    <label for="xpagClientSecret">Client Secret</label>
+                    <input type="password" id="xpagClientSecret" autocomplete="new-password" />
+                  </div>
+                </div>
+                <small class="hint">Gere as credenciais no <a href="https://xpagamentos.com" target="_blank" rel="noopener">painel da XPag</a>. A autenticação usa <code>X-Client-Id</code> e <code>X-Client-Secret</code>.</small>
+              </section>
+
+              <section class="integration-section">
+                <h3>Conversão de preços</h3>
+                <p class="integration-section-sub">Ao mudar um modelo para México, o editor consulta <code>/conversion/simulate</code> e converte planos, promoções e tarifa para MXN sem movimentar saldo.</p>
+              </section>
+
+              <section class="integration-section">
+                <h3>URLs do sistema</h3>
+                <p class="integration-section-sub">O <code>webhook_url</code> é enviado automaticamente ao criar cada cobrança SPEI ou OXXO.</p>
+                <div class="form-field" style="margin-top:0">
+                  <label>Webhook que recebe a XPag</label>
+                  <div class="copy-row">
+                    <input type="text" id="xpagWebhookUrl" readonly />
+                    <button type="button" class="btn-ghost" data-copy="xpagWebhookUrl">Copiar</button>
+                  </div>
+                </div>
+                <small class="hint"><code>POST /api/deposits</code>: use <code>method: "spei"</code> ou <code>method: "oxxo"</code>. O OXXO aceita cobranças entre 10 e 10.000 MXN.</small>
+              </section>
+
+              <div class="integration-actions">
+                <button type="submit" class="btn-primary" data-save="xpag">Salvar XPag</button>
+              </div>
+            </form>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ===================== Categoria: Rastreamento ===================== -->
+      <section class="integration-group">
+        <h2 class="integration-group-title">Rastreamento e analytics</h2>
+        <p class="integration-group-sub">Pixels e ferramentas para acompanhar tráfego e conversões. Configurações globais — aplicam a todas as páginas públicas.</p>
+
+        <div class="integration-list">
+
+          <!-- ===================== UTMfy ===================== -->
+          <article class="integration-card is-collapsed" data-integration="utmfy">
+            <button type="button" class="integration-head" data-toggle aria-expanded="false">
+              <div class="integration-icon utmfy-icon">U</div>
+              <div class="integration-meta">
+                <h2>UTMfy</h2>
+                <p>Atribuição de UTMs e conversões.</p>
+              </div>
+              <span class="integration-status" data-status="utmfy">—</span>
+              <span class="integration-chevron" aria-hidden="true">▾</span>
+            </button>
+
+            <form class="integration-body" data-form="utmfy" autocomplete="off">
+              <section class="integration-section">
+                <h3>Credenciais</h3>
+                <div class="form-field" style="margin-top:0">
+                  <label for="utmfyApiToken">API Token</label>
+                  <input type="password" id="utmfyApiToken" autocomplete="new-password" placeholder="Cole o token gerado no painel da UTMfy" />
+                  <small class="hint">Quando o webhook <code>deposit_paid</code> dispara, enviaremos a conversão pra UTMfy automaticamente.</small>
+                </div>
+              </section>
+
+              <div class="integration-actions">
+                <button type="submit" class="btn-primary" data-save="utmfy">Salvar UTMfy</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- ===================== Meta Pixel ===================== -->
+          <article class="integration-card is-collapsed" data-integration="meta">
+            <button type="button" class="integration-head" data-toggle aria-expanded="false">
+              <div class="integration-icon meta-icon">M</div>
+              <div class="integration-meta">
+                <h2>Meta Pixel</h2>
+                <p>Facebook + Instagram Ads — eventos automáticos.</p>
+              </div>
+              <span class="integration-status" data-status="meta">—</span>
+              <span class="integration-chevron" aria-hidden="true">▾</span>
+            </button>
+
+            <form class="integration-body" data-form="meta" autocomplete="off">
+              <section class="integration-section">
+                <h3>Pixel IDs</h3>
+                <p class="integration-section-sub">Adicione um ou mais Pixel IDs (Meta permite vincular vários a uma mesma página). Eventos disparados automaticamente: <code>PageView</code>, <code>ViewContent</code>, <code>InitiateCheckout</code>, <code>AddPaymentInfo</code>, <code>Purchase</code>.</p>
+                <div class="pixel-list" data-pixel-list="meta"></div>
+                <button type="button" class="btn-ghost btn-add-pixel" data-add-pixel="meta">+ Adicionar Pixel ID</button>
+              </section>
+
+              <div class="integration-actions">
+                <button type="submit" class="btn-primary" data-save="meta">Salvar Meta Pixel</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- ===================== TikTok Pixel ===================== -->
+          <article class="integration-card is-collapsed" data-integration="tiktok">
+            <button type="button" class="integration-head" data-toggle aria-expanded="false">
+              <div class="integration-icon tiktok-icon">T</div>
+              <div class="integration-meta">
+                <h2>TikTok Pixel</h2>
+                <p>TikTok Ads — eventos automáticos.</p>
+              </div>
+              <span class="integration-status" data-status="tiktok">—</span>
+              <span class="integration-chevron" aria-hidden="true">▾</span>
+            </button>
+
+            <form class="integration-body" data-form="tiktok" autocomplete="off">
+              <section class="integration-section">
+                <h3>Pixel IDs</h3>
+                <p class="integration-section-sub">Adicione um ou mais Pixel IDs. Eventos disparados automaticamente: <code>Browse</code>, <code>ViewContent</code>, <code>InitiateCheckout</code>, <code>AddPaymentInfo</code>, <code>CompletePayment</code>.</p>
+                <div class="pixel-list" data-pixel-list="tiktok"></div>
+                <button type="button" class="btn-ghost btn-add-pixel" data-add-pixel="tiktok">+ Adicionar Pixel ID</button>
+              </section>
+
+              <div class="integration-actions">
+                <button type="submit" class="btn-primary" data-save="tiktok">Salvar TikTok Pixel</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- ===================== Custom head script ===================== -->
+          <article class="integration-card is-collapsed" data-integration="custom">
+            <button type="button" class="integration-head" data-toggle aria-expanded="false">
+              <div class="integration-icon custom-icon">&lt;/&gt;</div>
+              <div class="integration-meta">
+                <h2>Script customizado</h2>
+                <p>HTML/JS injetado no <code>&lt;head&gt;</code> da página pública.</p>
+              </div>
+              <span class="integration-status" data-status="custom">—</span>
+              <span class="integration-chevron" aria-hidden="true">▾</span>
+            </button>
+
+            <form class="integration-body" data-form="custom" autocomplete="off">
+              <section class="integration-section">
+                <h3>HTML / JavaScript</h3>
+                <p class="integration-section-sub">Para Google Tag Manager, Google Analytics, Hotjar, Clarity ou qualquer outro tag não coberto pelos cards acima. Inclua o <code>&lt;script&gt;</code> completo. Limite ~10KB.</p>
+                <div class="form-field" style="margin-top:0">
+                  <label for="customHeadScript">Conteúdo do <code>&lt;head&gt;</code></label>
+                  <textarea id="customHeadScript" rows="10" maxlength="10000" placeholder="<!-- Google Tag Manager -->&#10;<script>(function(w,d,s,l,i){...})</script>" spellcheck="false"></textarea>
+                  <small class="hint">⚠ Será injetado como HTML bruto na página pública. Confira a fonte antes de colar.</small>
+                </div>
+              </section>
+
+              <div class="integration-actions">
+                <button type="submit" class="btn-primary" data-save="custom">Salvar script</button>
+              </div>
+            </form>
+          </article>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="/js/logo.js?v=8"></script>
+  <script src="/js/integracoes.js?v=9"></script>
+</body>
+</html>

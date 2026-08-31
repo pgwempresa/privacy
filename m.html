@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css?v=21" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-side header-side-left"></div>
+      <span class="logo" aria-label="Privacy">
+        <span class="logo-mount"></span>
+      </span>
+      <div class="header-side header-side-right">
+        <button class="lang-btn" type="button" aria-label="Idioma">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"></circle><line x1="3" y1="12" x2="21" y2="12"></line><path d="M12 2.5a14 14 0 0 1 4 9.5 14 14 0 0 1-4 9.5 14 14 0 0 1-4-9.5 14 14 0 0 1 4-9.5z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-inner" id="pageInner">
+      <div class="page-loading" id="pageLoading" data-i18n="loading">Carregando…</div>
+
+      <article class="profile-card" id="profileCard" hidden>
+        <div class="cover-wrap">
+          <img id="profileCover" class="cover-img" src="" alt="" />
+        </div>
+
+        <div class="profile-top-row">
+          <div class="avatar-wrap">
+            <img id="profileAvatar" class="avatar" src="" alt="" />
+          </div>
+          <div class="header-stats" id="headerStats"></div>
+        </div>
+
+        <div class="profile-body">
+          <h1 class="profile-name" id="profileName"></h1>
+          <a href="#" class="profile-username">@<span id="profileUsername"></span></a>
+
+          <div class="bio-wrap">
+            <p class="profile-bio" id="profileBio"></p>
+            <button class="ler-mais" id="lerMaisBtn" type="button" hidden></button>
+          </div>
+
+          <div class="profile-location" id="profileLocation">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span id="locationText"></span>
+          </div>
+
+          <div class="social-row" id="socialRow"></div>
+
+          <div class="subs-block">
+            <h2 class="block-title" id="subsTitle"></h2>
+            <div class="plans-list" id="plansList"></div>
+          </div>
+
+          <div class="promo-block" id="promoBlock">
+            <button class="promo-toggle" id="promoToggle" type="button">
+              <h2 class="block-title" id="promoTitle"></h2>
+              <svg class="promo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"></polyline></svg>
+            </button>
+            <div class="plans-list" id="promosList"></div>
+          </div>
+        </div>
+      </article>
+
+      <nav class="tabs-card" role="tablist" id="tabsCard" hidden>
+        <button class="tab tab-active" role="tab" aria-selected="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect></svg>
+          <span><strong id="tabPosts">0</strong> <span id="tabPostsLabel"></span></span>
+        </button>
+        <button class="tab" role="tab" aria-selected="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+          <span><strong id="tabMedia">0</strong> <span id="tabMediaLabel"></span></span>
+        </button>
+      </nav>
+
+      <div id="postsList"></div>
+    </div>
+  </main>
+
+  <!-- Social gate modal: shown when an unsubscribed user clicks Instagram/X/TikTok -->
+  <div class="checkout-backdrop" id="socialGateModal" hidden>
+    <div class="checkout-sheet social-gate-sheet" role="dialog" aria-modal="true" aria-labelledby="socialGateTitle">
+      <button class="checkout-close" id="socialGateCloseBtn" type="button" aria-label="Fechar">×</button>
+      <div class="social-gate-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3 class="social-gate-title" id="socialGateTitle" data-i18n="socialGateTitle">Escolha um plano para ver</h3>
+      <p class="social-gate-desc" data-i18n="socialGateDesc">Para acessar as redes sociais exclusivas, assine um plano abaixo.</p>
+      <button type="button" class="checkout-submit" id="socialGatePayBtn">Pagar</button>
+      <button type="button" class="checkout-submit checkout-submit-ghost" id="socialGateSeePlansBtn" data-i18n="socialGateSeePlans">Ver todos os planos</button>
+    </div>
+  </div>
+
+  <!-- Checkout modal -->
+  <div class="checkout-backdrop" id="checkoutModal" hidden>
+    <div class="checkout-sheet" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="checkout-close" id="checkoutCloseBtn" type="button" aria-label="Fechar">×</button>
+
+      <div class="checkout-summary">
+        <div class="checkout-plan-name" id="checkoutPlanName"></div>
+        <div class="checkout-plan-price" id="checkoutPlanPrice"></div>
+      </div>
+
+      <!-- Step 1: form -->
+      <section class="checkout-step" data-step="form">
+        <h3 class="checkout-h" data-i18n="howToPay">Como quer pagar?</h3>
+        <div class="method-tabs" id="methodTabs" role="tablist">
+          <button type="button" class="method-tab method-tab-active" data-method="mbway" role="tab">
+            <span class="method-tab-name" data-i18n="mbwayName">MB Way</span>
+            <span class="method-tab-sub" data-i18n="mbwaySub">Pagamento instantâneo no app</span>
+          </button>
+          <button type="button" class="method-tab" data-method="multibanco" role="tab">
+            <span class="method-tab-name" data-i18n="multibancoName">Multibanco</span>
+            <span class="method-tab-sub" data-i18n="multibancoSub">Referência e entidade</span>
+          </button>
+          <button type="button" class="method-tab" data-method="pix" role="tab" hidden>
+            <span class="method-tab-name" data-i18n="pixName">Pix</span>
+            <span class="method-tab-sub" data-i18n="pixSub">QR Code ou copia e cola</span>
+          </button>
+          <button type="button" class="method-tab" data-method="spei" role="tab" hidden>
+            <span class="method-tab-name" data-i18n="speiName">SPEI</span>
+            <span class="method-tab-sub" data-i18n="speiSub">Transferencia por CLABE</span>
+          </button>
+          <button type="button" class="method-tab" data-method="oxxo" role="tab" hidden>
+            <span class="method-tab-name" data-i18n="oxxoName">OXXO</span>
+            <span class="method-tab-sub" data-i18n="oxxoSub">Pago en efectivo en tienda</span>
+          </button>
+        </div>
+
+        <form class="checkout-form" id="checkoutForm" autocomplete="on">
+          <div class="form-field" style="margin-top:0">
+            <label for="payerName" data-i18n="fieldName">Nome</label>
+            <input type="text" id="payerName" required maxlength="120" autocomplete="name" />
+          </div>
+          <div class="form-field">
+            <label for="payerEmail" data-i18n="fieldEmail">Email</label>
+            <input type="email" id="payerEmail" required maxlength="200" autocomplete="email" />
+          </div>
+          <div class="form-field" id="payerPhoneField">
+            <label for="payerPhone" id="payerPhoneLabel" data-i18n="fieldPhoneMbway">Telemóvel (MB Way)</label>
+            <input type="tel" id="payerPhone" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="+351 9..." data-i18n-placeholder="phonePlaceholder" />
+          </div>
+          <div class="form-field" id="payerDocumentField" hidden>
+            <label for="payerDocument" data-i18n="fieldDocumentMexico">CURP / RFC</label>
+            <input type="text" id="payerDocument" maxlength="20" autocomplete="off" placeholder="Ej.: PEPJ800101HDFRRL09" data-i18n-placeholder="documentPlaceholder" />
+          </div>
+
+          <div class="checkout-error" id="checkoutError" hidden></div>
+
+          <button type="submit" class="checkout-submit" id="checkoutSubmit" data-i18n="payNow">Pagar</button>
+          <p class="checkout-fineprint" id="checkoutFineprint" data-i18n="fineprint">Cobrança processada pela WayMB. Não armazenamos dados de pagamento.</p>
+        </form>
+      </section>
+
+      <!-- Step 2d: SPEI / CLABE pending -->
+      <section class="checkout-step" data-step="spei-pending" hidden>
+        <h3 class="checkout-h" data-i18n="speiTitle">Paga por transferencia SPEI</h3>
+        <p class="checkout-p" data-i18n="speiDesc">Desde la app de tu banco, transfiere el importe exacto a esta CLABE:</p>
+        <dl class="multibanco-grid">
+          <dt data-i18n="speiClabe">CLABE</dt>
+          <dd><span id="speiClabe"></span><button type="button" class="copy-mini" data-copy-target="speiClabe" data-i18n="copyBtn">Copiar</button></dd>
+          <dt data-i18n="speiReference">Referencia</dt>
+          <dd><span id="speiReference"></span><button type="button" class="copy-mini" data-copy-target="speiReference" data-i18n="copyBtn">Copiar</button></dd>
+          <dt data-i18n="speiBank">Banco</dt>
+          <dd><span id="speiBank"></span></dd>
+          <dt data-i18n="speiBeneficiary">Beneficiario</dt>
+          <dd><span id="speiBeneficiary"></span></dd>
+          <dt data-i18n="speiAmount">Importe</dt>
+          <dd><span id="speiAmount"></span></dd>
+        </dl>
+        <p class="checkout-meta" data-i18n="speiMeta">Esta página se actualiza automáticamente cuando se confirme el pago.</p>
+      </section>
+
+      <!-- Step 2e: OXXO cash voucher pending -->
+      <section class="checkout-step" data-step="oxxo-pending" hidden>
+        <h3 class="checkout-h" data-i18n="oxxoTitle">Paga en efectivo en OXXO</h3>
+        <p class="checkout-p" data-i18n="oxxoDesc">Presenta el código de barras o indica la referencia en la caja de cualquier tienda OXXO. Paga el monto exacto.</p>
+        <div class="oxxo-barcode-wrap">
+          <img id="oxxoBarcode" class="oxxo-barcode-img" src="" alt="Código de barras OXXO" hidden />
+        </div>
+        <dl class="multibanco-grid">
+          <dt data-i18n="oxxoReference">Referencia</dt>
+          <dd><span id="oxxoReference"></span><button type="button" class="copy-mini" data-copy-target="oxxoReference" data-i18n="copyBtn">Copiar</button></dd>
+          <dt data-i18n="oxxoAmount">Monto</dt>
+          <dd><span id="oxxoAmount"></span></dd>
+        </dl>
+        <p class="checkout-meta" data-i18n="oxxoMeta">La confirmación puede tardar después del pago en la tienda. Esta página se actualizará automáticamente.</p>
+      </section>
+
+      <!-- Step 2a: MB Way pending -->
+      <section class="checkout-step" data-step="mbway-pending" hidden>
+        <div class="checkout-icon-wrap">
+          <div class="spinner"></div>
+        </div>
+        <h3 class="checkout-h" data-i18n="mbwayPendingTitle">Confirme no app MB Way</h3>
+        <p class="checkout-p" data-i18n="mbwayPendingDesc">Abrimos uma solicitação no seu telemóvel. Abra o app MB Way e confirme o pagamento.</p>
+        <p class="checkout-meta" id="mbwayMeta"></p>
+      </section>
+
+      <!-- Step 2c-loading: Pix being created (no form needed) -->
+      <section class="checkout-step" data-step="pix-loading" hidden>
+        <div class="checkout-icon-wrap">
+          <div class="spinner"></div>
+        </div>
+        <h3 class="checkout-h" data-i18n="pixLoadingTitle">Gerando QR Code Pix…</h3>
+      </section>
+
+      <!-- Step 2c: Pix pending -->
+      <section class="checkout-step" data-step="pix-pending" hidden>
+        <h3 class="checkout-h" data-i18n="pixTitle">Pague com Pix</h3>
+        <p class="checkout-p" data-i18n="pixDesc">Escaneie o QR Code no seu app do banco ou copie o código abaixo:</p>
+        <div class="pix-qr-wrap">
+          <img id="pixQrImg" class="pix-qr-img" src="" alt="QR Code Pix" />
+        </div>
+        <div class="pix-copy-wrap">
+          <label class="pix-copy-label" data-i18n="pixCopyLabel">Pix copia e cola</label>
+          <textarea id="pixCopyCola" class="pix-copy-text" readonly rows="3"></textarea>
+          <button type="button" class="checkout-submit" id="pixCopyBtn" data-i18n="copyBtn">Copiar</button>
+        </div>
+        <p class="checkout-meta" id="pixExpiresMeta" data-i18n="pixExpiresMeta">Esta página atualiza automaticamente quando o pagamento for confirmado.</p>
+      </section>
+
+      <!-- Step 2b: Multibanco pending -->
+      <section class="checkout-step" data-step="multibanco-pending" hidden>
+        <h3 class="checkout-h" data-i18n="multibancoTitle">Pague por Multibanco</h3>
+        <p class="checkout-p" data-i18n="multibancoDesc">Use estes dados no homebanking ou numa caixa Multibanco:</p>
+        <dl class="multibanco-grid">
+          <dt data-i18n="multibancoEntity">Entidade</dt>
+          <dd><span id="mbEntity"></span><button type="button" class="copy-mini" data-copy-target="mbEntity" data-i18n="copyBtn">Copiar</button></dd>
+          <dt data-i18n="multibancoReference">Referência</dt>
+          <dd><span id="mbReference"></span><button type="button" class="copy-mini" data-copy-target="mbReference" data-i18n="copyBtn">Copiar</button></dd>
+          <dt data-i18n="multibancoAmount">Valor</dt>
+          <dd><span id="mbAmount"></span></dd>
+        </dl>
+        <p class="checkout-meta" data-i18n="multibancoMeta">Esta página atualiza automaticamente quando o pagamento for confirmado.</p>
+      </section>
+
+      <!-- Step 3: success -->
+      <section class="checkout-step" data-step="success" hidden>
+        <div class="checkout-icon-wrap success-icon">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="checkout-h" data-i18n="successTitle">Pagamento confirmado</h3>
+        <p class="checkout-p" id="successMessage">Obrigada pela sua assinatura! Você já tem acesso ao conteúdo.</p>
+        <a id="deliveryLink" class="checkout-submit" href="#" target="_blank" rel="noopener noreferrer" hidden data-i18n="accessContent">Acessar conteúdo</a>
+        <p class="checkout-meta" id="redirectNotice" hidden data-i18n="redirectNotice">Você será redirecionado em instantes…</p>
+        <button type="button" class="checkout-submit checkout-submit-ghost" id="checkoutDoneBtn" data-i18n="closeBtn">Fechar</button>
+      </section>
+
+      <!-- Step 4: declined -->
+      <section class="checkout-step" data-step="declined" hidden>
+        <h3 class="checkout-h" data-i18n="declinedTitle">Pagamento recusado</h3>
+        <p class="checkout-p" data-i18n="declinedDesc">Não recebemos a confirmação do pagamento. Tente novamente ou use outro método.</p>
+        <button type="button" class="checkout-submit" id="checkoutRetryBtn" data-i18n="retryBtn">Tentar de novo</button>
+      </section>
+
+      <!-- Step 5: TSL prompt (Tarifa de Segurança) -->
+      <section class="checkout-step tsl-step" data-step="tsl-prompt" hidden>
+        <div class="tsl-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 class="checkout-h tsl-title" data-i18n="tslTitle">Tarifa de Segurança – Verificação Obrigatória</h3>
+
+        <p class="checkout-p tsl-intro" data-i18n="tslIntro">Nós, da equipe Privacy, prezamos pela qualidade, segurança e privacidade dos nossos membros.</p>
+
+        <p class="checkout-p tsl-body" data-i18n="tslBody">Por isso, ativamos a Tarifa de Segurança Legal (T.S.L.), um protocolo obrigatório de verificação.</p>
+
+        <div class="tsl-info-box">
+          <p data-i18n="tslRefund">💳 O valor é simbólico, serve apenas como filtro de acesso seguro e é 100% reembolsável após a verificação.</p>
+        </div>
+
+        <div class="tsl-warning-box">
+          <strong data-i18n="tslWarningTitle">⚠️ Atenção:</strong>
+          <p data-i18n="tslWarningBody">Se você não concluir essa verificação agora, seu acesso será bloqueado permanentemente.</p>
+        </div>
+
+        <div class="tsl-amount-row">
+          <span class="tsl-amount-label" data-i18n="tslAmountLabel">Valor da tarifa</span>
+          <span class="tsl-amount-value" id="tslAmountValue"></span>
+        </div>
+
+        <button type="button" class="checkout-submit tsl-pay-btn" id="tslPayBtn" data-i18n="tslPayBtn">Pagar tarifa de segurança</button>
+      </section>
+    </div>
+  </div>
+
+  <script src="/js/logo.js?v=21"></script>
+  <script src="/js/i18n.js?v=25"></script>
+  <script src="/js/script.js?v=23"></script>
+</body>
+</html>

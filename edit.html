@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar modelo · Privacy</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css?v=12" />
+  <link rel="stylesheet" href="/css/admin.css?v=12" />
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="/admin" class="logo" aria-label="Privacy">
+        <span class="logo-mount"></span>
+        <span class="admin-pill">Admin</span>
+      </a>
+      <div class="admin-actions">
+        <a href="#" id="viewPublicLink" class="btn-ghost" target="_blank">Ver pública ↗</a>
+        <button class="btn-primary" id="saveBtn" type="button">Salvar</button>
+        <button class="btn-ghost" id="logoutBtn" type="button">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-container">
+      <a href="/admin" class="back-link">← Voltar aos modelos</a>
+      <h1 class="admin-title" id="editTitle">Editar modelo</h1>
+      <p class="admin-subtitle" id="editSubtitle">Carregando…</p>
+
+      <div id="saveToast" class="save-toast" hidden></div>
+
+      <form id="editForm" class="admin-form" autocomplete="off">
+
+        <!-- Deliverable -->
+        <fieldset class="admin-section">
+          <legend>Entregável</legend>
+          <p class="hint" style="margin-top:0;margin-bottom:12px">O que o cliente recebe quando o pagamento for confirmado.</p>
+
+          <div class="form-field" style="margin-top:0">
+            <label>Comportamento</label>
+            <div class="radio-row">
+              <label class="radio-opt">
+                <input type="radio" name="deliveryMode" value="inline" id="deliveryModeInline" />
+                <span><strong>Mostrar na página</strong><small>O cliente vê o link na tela de confirmação.</small></span>
+              </label>
+              <label class="radio-opt">
+                <input type="radio" name="deliveryMode" value="redirect" id="deliveryModeRedirect" />
+                <span><strong>Redirecionar</strong><small>O cliente é enviado direto para a URL.</small></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="deliveryUrlInput">URL do entregável</label>
+            <input type="url" id="deliveryUrlInput" maxlength="500" placeholder="https://t.me/seu-grupo-vip ou link do conteúdo" />
+            <small class="hint">Telegram, Discord, página privada, link do Drive, etc. Use https://.</small>
+          </div>
+
+          <div class="form-field" id="deliveryMessageField">
+            <label for="deliveryMessageInput">Mensagem ao cliente <small style="font-weight:400;opacity:.7">(opcional, só usada quando "Mostrar na página")</small></label>
+            <textarea id="deliveryMessageInput" rows="3" maxlength="500" placeholder="Ex: Acesse o grupo VIP no botão abaixo. Em caso de dúvidas, fale comigo no Instagram."></textarea>
+          </div>
+
+          <div class="form-field" style="border-top:1px dashed var(--border); padding-top:14px">
+            <label>Pré-visualizar entregável</label>
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+              <button type="button" class="btn-ghost" id="testPaymentBtn">🧪 Simular pagamento confirmado</button>
+              <small class="hint" style="margin:0">Cria um depósito de teste e abre a página pública já com o pagamento confirmado. Útil para validar o link/redirect antes de divulgar.</small>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Cloaker -->
+        <fieldset class="admin-section">
+          <legend>Cloaker</legend>
+          <p class="hint" style="margin-top:0;margin-bottom:12px">Quando ativado, somente visitantes em dispositivos móveis verão a página. Desktops são redirecionados para a URL configurada.</p>
+
+          <div class="form-field" style="margin-top:0">
+            <label class="radio-opt" style="cursor:pointer">
+              <input type="checkbox" id="cloakerEnabledInput" />
+              <span><strong>Ativar cloaker</strong><small>Bloqueia acesso de desktop e redireciona.</small></span>
+            </label>
+          </div>
+
+          <div class="form-field">
+            <label for="cloakerUrlInput">URL de redirecionamento (desktop)</label>
+            <input type="url" id="cloakerUrlInput" maxlength="500" placeholder="https://google.com" />
+            <small class="hint">Use https://. Se ficar em branco, o padrão é https://google.com.</small>
+          </div>
+        </fieldset>
+
+        <!-- Tarifa de Segurança (TSL) -->
+        <fieldset class="admin-section">
+          <legend>Tarifa de Segurança (TSL)</legend>
+          <p class="hint" style="margin-top:0;margin-bottom:12px">Após a confirmação do pagamento do plano, exibe uma tela cobrando uma "tarifa de segurança" extra antes de liberar o entregável. Cobra no mesmo gateway/método.</p>
+
+          <div class="form-field" style="margin-top:0">
+            <label class="radio-opt" style="cursor:pointer">
+              <input type="checkbox" id="tslEnabledInput" />
+              <span><strong>Ativar tarifa de segurança</strong><small>Cliente vê a tela TSL antes do entregável.</small></span>
+            </label>
+          </div>
+
+          <div class="form-field">
+            <label for="tslAmountInput">Valor da tarifa</label>
+            <input type="text" id="tslAmountInput" inputmode="decimal" placeholder="ex: 9.90" />
+            <small class="hint">Na moeda do modelo (R$, € ou $ MXN). Use ponto para decimais (9.90).</small>
+          </div>
+        </fieldset>
+
+        <!-- Locale / currency / gateway -->
+        <fieldset class="admin-section">
+          <legend>País, moeda & gateway</legend>
+          <div class="form-grid">
+            <div class="form-field" style="margin-top:0">
+              <label for="localeInput">Idioma da página</label>
+              <select id="localeInput" class="select">
+                <option value="pt-BR">🇧🇷 Português (Brasil)</option>
+                <option value="pt-PT">🇵🇹 Português (Portugal)</option>
+                <option value="es-MX">🇲🇽 Español (México)</option>
+              </select>
+            </div>
+            <div class="form-field" style="margin-top:0">
+              <label for="currencyInput">Moeda</label>
+              <select id="currencyInput" class="select">
+                <option value="BRL">Real brasileiro (R$)</option>
+                <option value="EUR">Euro (€)</option>
+                <option value="MXN">Peso mexicano ($ MXN)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="gatewayInput">Gateway de pagamento</label>
+            <select id="gatewayInput" class="select">
+              <option value="waymb">WayMB — MB Way / Multibanco (€)</option>
+              <option value="nexuspag">NexusPag — Pix (R$)</option>
+              <option value="xpag">XPag — SPEI / CLABE ($ MXN)</option>
+              <option value="none">Sem gateway (botões em "em breve")</option>
+            </select>
+            <small class="hint">Configure as credenciais em <a href="/admin/integracoes" target="_blank">/admin/integracoes</a>.</small>
+          </div>
+        </fieldset>
+
+        <!-- Profile -->
+        <fieldset class="admin-section">
+          <legend>Perfil</legend>
+
+          <div class="image-edit-row">
+            <div class="image-edit-col">
+              <label>Foto de perfil</label>
+              <div class="image-preview avatar-preview"><img id="avatarPreview" src="" alt="" /></div>
+              <div class="image-actions">
+                <label class="btn-ghost file-btn">
+                  Enviar arquivo
+                  <input type="file" accept="image/*" data-target="avatar" hidden />
+                </label>
+                <button type="button" class="btn-ghost" data-clear="avatar">Limpar</button>
+              </div>
+              <input type="url" id="avatarUrl" placeholder="ou cole uma URL https://…" />
+            </div>
+
+            <div class="image-edit-col">
+              <label>Capa</label>
+              <div class="image-preview cover-preview"><img id="coverPreview" src="" alt="" /></div>
+              <div class="image-actions">
+                <label class="btn-ghost file-btn">
+                  Enviar arquivo
+                  <input type="file" accept="image/*" data-target="cover" hidden />
+                </label>
+                <button type="button" class="btn-ghost" data-clear="cover">Limpar</button>
+              </div>
+              <input type="url" id="coverUrl" placeholder="ou cole uma URL https://…" />
+            </div>
+
+          </div>
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="nameInput">Nome de exibição</label>
+              <input type="text" id="nameInput" maxlength="80" />
+            </div>
+            <div class="form-field">
+              <label for="usernameInput">Nome de usuário</label>
+              <div class="input-prefix">
+                <span>@</span>
+                <input type="text" id="usernameInput" maxlength="40" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="bioInput">Bio</label>
+            <textarea id="bioInput" rows="4" maxlength="1000"></textarea>
+            <div class="char-counter"><span id="bioCount">0</span>/1000</div>
+          </div>
+
+          <div class="form-field">
+            <label for="locationInput">Localização</label>
+            <input type="text" id="locationInput" maxlength="80" placeholder="Ex: Brasil, Portugal, Lisboa" />
+          </div>
+        </fieldset>
+
+        <!-- Stats -->
+        <fieldset class="admin-section">
+          <legend>Estatísticas</legend>
+          <div class="form-grid form-grid-4">
+            <div class="form-field" style="margin-top:0">
+              <label for="photosInput">Fotos</label>
+              <input type="text" id="photosInput" inputmode="numeric" />
+            </div>
+            <div class="form-field" style="margin-top:0">
+              <label for="videosInput">Vídeos</label>
+              <input type="text" id="videosInput" inputmode="numeric" />
+            </div>
+            <div class="form-field" style="margin-top:0">
+              <label for="lockedInput">Bloqueados</label>
+              <input type="text" id="lockedInput" inputmode="numeric" />
+            </div>
+            <div class="form-field" style="margin-top:0">
+              <label for="likesInput">Curtidas</label>
+              <input type="text" id="likesInput" inputmode="numeric" />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="postCountInput">Postagens (aba)</label>
+              <input type="text" id="postCountInput" inputmode="numeric" />
+            </div>
+            <div class="form-field">
+              <label for="mediaCountInput">Mídias (aba)</label>
+              <input type="text" id="mediaCountInput" inputmode="numeric" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Social -->
+        <fieldset class="admin-section">
+          <legend>Redes sociais</legend>
+          <div class="form-grid form-grid-3">
+            <div class="form-field" style="margin-top:0">
+              <label for="instagramInput">Instagram</label>
+              <input type="url" id="instagramInput" placeholder="https://instagram.com/…" />
+            </div>
+            <div class="form-field" style="margin-top:0">
+              <label for="twitterInput">X / Twitter</label>
+              <input type="url" id="twitterInput" placeholder="https://x.com/…" />
+            </div>
+            <div class="form-field" style="margin-top:0">
+              <label for="tiktokInput">TikTok</label>
+              <input type="url" id="tiktokInput" placeholder="https://tiktok.com/@…" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Plans -->
+        <fieldset class="admin-section">
+          <legend>Assinaturas</legend>
+          <div id="plansEditor" class="plans-editor"></div>
+          <button type="button" class="btn-ghost" id="addPlanBtn">+ Adicionar plano</button>
+        </fieldset>
+
+        <!-- Promos -->
+        <fieldset class="admin-section">
+          <legend>Promoções</legend>
+          <div id="promosEditor" class="plans-editor"></div>
+          <button type="button" class="btn-ghost" id="addPromoBtn">+ Adicionar promoção</button>
+        </fieldset>
+
+        <!-- Posts -->
+        <fieldset class="admin-section">
+          <legend>Publicações <small style="font-weight:400;opacity:.7">(cards bloqueados — a imagem aparece desfocada)</small></legend>
+          <div id="postsEditor" class="posts-editor"></div>
+          <button type="button" class="btn-ghost" id="addPostBtn">+ Adicionar publicação</button>
+        </fieldset>
+
+        <div class="form-actions-bottom">
+          <button type="button" class="btn-primary" id="saveBtnBottom">Salvar alterações</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="/js/logo.js?v=12"></script>
+  <script src="/js/i18n.js?v=15"></script>
+  <script src="/js/edit.js?v=13"></script>
+</body>
+</html>

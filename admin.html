@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · Privacy</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css?v=5" />
+  <link rel="stylesheet" href="/css/admin.css?v=5" />
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="/admin" class="logo" aria-label="Privacy">
+        <span class="logo-mount"></span>
+        <span class="admin-pill">Admin</span>
+      </a>
+      <nav class="admin-nav">
+        <a href="/admin" class="active">Modelos</a>
+        <a href="/admin/integracoes">Integrações</a>
+      </nav>
+      <div class="admin-actions">
+        <span class="admin-user" id="adminUser"></span>
+        <button class="btn-ghost" id="logoutBtn" type="button">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="admin-container">
+      <div class="page-head">
+        <div>
+          <h1 class="admin-title">Modelos</h1>
+          <p class="admin-subtitle">Gerencie suas páginas de checkout. Cada modelo tem sua URL pública.</p>
+        </div>
+        <button class="btn-primary" id="newModelBtn" type="button">+ Novo modelo</button>
+      </div>
+
+      <div id="saveToast" class="save-toast" hidden></div>
+
+      <div id="modelsList" class="models-grid">
+        <div class="models-loading">Carregando…</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- New model modal -->
+  <div class="modal-backdrop" id="newModelModal" hidden>
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title">Criar novo modelo</h2>
+        <button class="modal-close" id="modalCloseBtn" type="button" aria-label="Fechar">×</button>
+      </div>
+      <form id="newModelForm" class="modal-body" autocomplete="off">
+        <div class="form-field" style="margin-top:0">
+          <label for="newSlug">Slug (URL)</label>
+          <div class="input-prefix">
+            <span>/m/</span>
+            <input type="text" id="newSlug" required maxlength="40" placeholder="ex: tatianaalvarez" />
+          </div>
+          <small class="hint">Letras minúsculas, números e hífens. 1–40 caracteres.</small>
+        </div>
+
+        <div class="form-field">
+          <label for="newLocale">País / Idioma</label>
+          <select id="newLocale" class="select">
+            <option value="pt-BR">🇧🇷 Brasil — Português (BR), R$</option>
+            <option value="pt-PT">🇵🇹 Portugal — Português (PT), €</option>
+            <option value="es-MX">🇲🇽 México — Español (MX), $ MXN</option>
+          </select>
+        </div>
+
+        <div id="newModelError" class="login-error" hidden></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="modalCancelBtn">Cancelar</button>
+          <button type="submit" class="btn-primary" id="modalSubmitBtn">Criar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/logo.js?v=5"></script>
+  <script src="/js/admin-list.js?v=6"></script>
+</body>
+</html>
