@@ -23,6 +23,7 @@ npm run dev
 ```
 
 Abra `http://127.0.0.1:3000`. O servidor local usa `.data/` e lê `.env.local`; ambos são ignorados pelo Git.
+O arquivo `dev-server.js` existe somente para desenvolvimento local; a Vercel usa os HTMLs, `vercel.json` e as funções da pasta `api/`.
 
 Para executar os testes:
 

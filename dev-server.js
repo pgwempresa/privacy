@@ -52,6 +52,9 @@ const mimeTypes = {
   '.webm': 'video/webm'
 };
 
+// Local development server only. The filename intentionally is not server.js:
+// Vercel treats a root server.js as a production app entrypoint and would route
+// static HTML requests through this local-only process.
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host || `${HOST}:${PORT}`}`);
