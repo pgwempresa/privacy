@@ -282,6 +282,7 @@ test('deposit endpoint maps valid SPEI and OXXO instructions', async (t) => {
 
 test('Meta Purchase is generated for SPEI/OXXO and absent from confirmation', () => {
   const source = fs.readFileSync(path.join(__dirname, '../js/script.js'), 'utf8');
+  const markup = fs.readFileSync(path.join(__dirname, '../m.html'), 'utf8');
   const confirmation = source.slice(
     source.indexOf('function onPaymentConfirmed'),
     source.indexOf('function isHttpUrl')
@@ -290,4 +291,8 @@ test('Meta Purchase is generated for SPEI/OXXO and absent from confirmation', ()
   assert.match(source, /trackMetaPurchaseOnGeneration\('oxxo'\)/);
   assert.match(source, /metaTrack\('Purchase', props\)/);
   assert.doesNotMatch(confirmation, /metaTrack\('Purchase'/);
+  assert.ok(source.indexOf("CURRENCY = d.model.currency || 'BRL'") < source.indexOf('initTracking(d.tracking'));
+  assert.match(source, /metaTrack\('PageView'\)/);
+  assert.match(source, /metaTrack\('ViewContent', baseProps\)/);
+  assert.doesNotMatch(markup, /id="speiReference"/);
 });

@@ -82,6 +82,8 @@
         return;
       }
       MODEL = d.model;
+      LOCALE = d.model.locale || 'pt-BR';
+      CURRENCY = d.model.currency || 'BRL';
       // Initialize pixels + inject custom head script BEFORE render so the
       // first PageView is fired ASAP and any GTM tag has a chance to load.
       initTracking(d.tracking || {}, d.model);
@@ -854,7 +856,6 @@
           return;
         }
         document.getElementById('speiClabe').textContent = clabe;
-        document.getElementById('speiReference').textContent = gw.reference || '—';
         document.getElementById('speiBank').textContent = gw.bank_name || '—';
         document.getElementById('speiBeneficiary').textContent = gw.beneficiary || '—';
         document.getElementById('speiAmount').textContent = window.formatPrice(CHECKOUT.plan.price, CURRENCY);
