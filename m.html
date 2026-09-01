@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/style.css?v=26" />
+  <link rel="stylesheet" href="/css/style.css?v=27" />
 </head>
 <body>
 
@@ -28,7 +28,10 @@
 
   <main class="page">
     <div class="page-inner" id="pageInner">
-      <div class="page-loading" id="pageLoading" data-i18n="loading">Carregando…</div>
+      <div class="page-loading" id="pageLoading" role="status" aria-live="polite">
+        <img class="page-loading-logo" src="/onlyfans-logo.png" alt="OnlyFans" width="180" height="40" />
+        <span class="sr-only" data-i18n="loading">Carregando…</span>
+      </div>
 
       <article class="profile-card" id="profileCard" hidden>
         <div class="cover-wrap">
