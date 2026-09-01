@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/style.css?v=27" />
+  <link rel="stylesheet" href="/css/style.css?v=28" />
 </head>
 <body>
 
@@ -55,7 +55,15 @@
         </div>
 
         <div class="profile-body">
-          <h1 class="profile-name" id="profileName"></h1>
+          <div class="profile-name-row">
+            <h1 class="profile-name" id="profileName"></h1>
+            <span class="verified-badge" role="img" aria-label="Perfil verificado" title="Perfil verificado">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2.7 14.1 4l2.45-.15.95 2.27 2.05 1.35-.58 2.39.58 2.39-2.05 1.35-.95 2.27-2.45-.15L12 17.05 9.9 15.72l-2.45.15-.95-2.27-2.05-1.35.58-2.39-.58-2.39L6.5 6.12l.95-2.27L9.9 4 12 2.7Z" fill="currentColor"></path>
+                <path d="m8.4 9.85 2.2 2.2 4.9-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+          </div>
           <a href="#" class="profile-username">@<span id="profileUsername"></span></a>
 
           <div class="bio-wrap">

@@ -235,6 +235,22 @@ button { font-family: inherit; }
   letter-spacing: -0.3px;
   line-height: 1.15;
 }
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+.verified-badge {
+  flex: 0 0 auto;
+  width: 19px;
+  height: 19px;
+  color: var(--orange);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.verified-badge svg { display: block; }
 .profile-username {
   display: block;
   color: var(--muted);
