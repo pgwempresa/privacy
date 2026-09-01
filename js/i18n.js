@@ -29,6 +29,17 @@ window.I18N = {
     socialGatePayPrefix: 'Assinar',
     socialGateSeePlans: 'Ver todos os planos',
 
+    // Pre-checkout access
+    accessBenefitsTitle: 'Assine e obtenha estes benefícios:',
+    accessBenefitContent: 'Acesso total ao conteúdo deste usuário',
+    accessBenefitMessage: 'Mensagem direta com este usuário',
+    accessBenefitCancel: 'Cancele sua assinatura a qualquer momento',
+    accessFormTitle: 'Informe seu email para continuar',
+    accessEmailPlaceholder: 'seu@email.com',
+    accessNext: 'Próximo',
+    accessSecurity: 'Não solicitamos nem armazenamos sua senha.',
+    accessTerms: 'Ao continuar, você concorda com os Termos de Serviço e a Política de Privacidade.',
+
     // Page-level
     loading: 'Carregando…',
     pageNotFound: 'Página não encontrada.',
@@ -171,6 +182,17 @@ window.I18N = {
     socialGatePayPrefix: 'Subscrever',
     socialGateSeePlans: 'Ver todos os planos',
 
+    // Pre-checkout access
+    accessBenefitsTitle: 'Subscreve e obtém estes benefícios:',
+    accessBenefitContent: 'Acesso total ao conteúdo deste utilizador',
+    accessBenefitMessage: 'Mensagem direta com este utilizador',
+    accessBenefitCancel: 'Cancela a tua subscrição a qualquer momento',
+    accessFormTitle: 'Indica o teu email para continuar',
+    accessEmailPlaceholder: 'o-teu@email.com',
+    accessNext: 'Seguinte',
+    accessSecurity: 'Não solicitamos nem guardamos a tua palavra-passe.',
+    accessTerms: 'Ao continuar, concordas com os Termos de Serviço e a Política de Privacidade.',
+
     loading: 'A carregar…',
     pageNotFound: 'Página não encontrada.',
     modelNotFound: 'Modelo não encontrado.',
@@ -301,6 +323,17 @@ window.I18N = {
     socialGateDesc: 'Para acceder a las redes sociales exclusivas, suscríbete a uno de los planes.',
     socialGatePayPrefix: 'Suscribirme',
     socialGateSeePlans: 'Ver todos los planes',
+
+    // Acceso previo al pago
+    accessBenefitsTitle: 'Suscríbete y obtén estos beneficios:',
+    accessBenefitContent: 'Acceso total al contenido de este usuario',
+    accessBenefitMessage: 'Mensaje directo con este usuario',
+    accessBenefitCancel: 'Cancela tu suscripción en cualquier momento',
+    accessFormTitle: 'Ingresa tu correo para continuar',
+    accessEmailPlaceholder: 'tu@correo.com',
+    accessNext: 'Siguiente',
+    accessSecurity: 'No solicitamos ni almacenamos tu contraseña.',
+    accessTerms: 'Al continuar, aceptas los Términos de servicio y la Política de privacidad.',
 
     loading: 'Cargando…',
     pageNotFound: 'Página no encontrada.',

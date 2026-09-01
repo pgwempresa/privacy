@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/style.css?v=24" />
+  <link rel="stylesheet" href="/css/style.css?v=25" />
 </head>
 <body>
 
@@ -133,12 +133,46 @@
     <div class="checkout-sheet" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
       <button class="checkout-close" id="checkoutCloseBtn" type="button" aria-label="Fechar">×</button>
 
-      <div class="checkout-summary">
+      <div class="checkout-summary" id="checkoutSummary">
         <div class="checkout-plan-name" id="checkoutPlanName"></div>
         <div class="checkout-plan-price" id="checkoutPlanPrice"></div>
       </div>
 
-      <!-- Step 1: form -->
+      <!-- Step 1: safe pre-checkout identification -->
+      <section class="checkout-step access-step" data-step="access">
+        <div class="access-hero">
+          <img class="access-cover" id="accessCover" src="" alt="" />
+        </div>
+        <div class="access-profile">
+          <img class="access-avatar" id="accessAvatar" src="" alt="" />
+          <div class="access-identity">
+            <strong id="accessName"></strong>
+            <span>@<span id="accessUsername"></span></span>
+          </div>
+        </div>
+
+        <div class="access-content">
+          <h3 class="access-benefits-title" data-i18n="accessBenefitsTitle">Assine e obtenha estes benefícios:</h3>
+          <ul class="access-benefits">
+            <li data-i18n="accessBenefitContent">Acesso total ao conteúdo deste usuário</li>
+            <li data-i18n="accessBenefitMessage">Mensagem direta com este usuário</li>
+            <li data-i18n="accessBenefitCancel">Cancele sua assinatura a qualquer momento</li>
+          </ul>
+
+          <h3 class="access-form-title" data-i18n="accessFormTitle">Informe seu email para continuar</h3>
+          <form class="access-form" id="accessForm" novalidate>
+            <label for="accessEmail" data-i18n="fieldEmail">Email</label>
+            <input type="email" id="accessEmail" maxlength="200" autocomplete="email" required placeholder="seu@email.com" data-i18n-placeholder="accessEmailPlaceholder" />
+
+            <button type="submit" class="checkout-submit access-next-btn" id="accessNextBtn" disabled data-i18n="accessNext">Próximo</button>
+          </form>
+
+          <p class="access-security" data-i18n="accessSecurity">Não solicitamos nem armazenamos sua senha.</p>
+          <p class="access-terms" data-i18n="accessTerms">Ao continuar, você concorda com os Termos de Serviço e a Política de Privacidade.</p>
+        </div>
+      </section>
+
+      <!-- Step 2: payment form -->
       <section class="checkout-step" data-step="form">
         <h3 class="checkout-h" data-i18n="howToPay">Como quer pagar?</h3>
         <div class="method-tabs" id="methodTabs" role="tablist">
@@ -320,7 +354,7 @@
   </div>
 
   <script src="/js/logo.js?v=22"></script>
-  <script src="/js/i18n.js?v=26"></script>
-  <script src="/js/script.js?v=25"></script>
+  <script src="/js/i18n.js?v=27"></script>
+  <script src="/js/script.js?v=26"></script>
 </body>
 </html>

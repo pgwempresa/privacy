@@ -523,6 +523,7 @@
       depositId: null,
       pollTimer: null,
       gateway: gw,
+      accessEmail: '',
       purchaseTracked: false
     };
 
@@ -536,6 +537,15 @@
     document.getElementById('checkoutPlanPrice').textContent = formatPrice(plan.price);
     document.getElementById('checkoutError').hidden = true;
     document.getElementById('checkoutForm').reset();
+    document.getElementById('accessForm').reset();
+    document.getElementById('accessNextBtn').disabled = true;
+
+    const accessCover = document.getElementById('accessCover');
+    const accessAvatar = document.getElementById('accessAvatar');
+    accessCover.src = (MODEL && MODEL.cover) || '';
+    accessAvatar.src = (MODEL && MODEL.avatar) || '';
+    document.getElementById('accessName').textContent = (MODEL && MODEL.name) || '';
+    document.getElementById('accessUsername').textContent = (MODEL && MODEL.username) || '';
 
     // Show only the method tabs supported by this gateway.
     const tabs = document.querySelectorAll('#methodTabs .method-tab');
@@ -553,14 +563,8 @@
     document.body.style.overflow = 'hidden';
     bindCheckoutOnce();
 
-    if (gw === 'nexuspag') {
-      // Pix doesn't need name/email — skip the form and generate the QR right away.
-      showStep('pix-loading');
-      sendDeposit({ name: '', email: '', phone: '' });
-    } else {
-      showStep('form');
-      setTimeout(() => document.getElementById('payerName').focus(), 80);
-    }
+    showStep('access');
+    setTimeout(() => document.getElementById('accessEmail').focus(), 80);
   }
 
   // ===================== Social gate =====================
@@ -684,6 +688,11 @@
     document.querySelectorAll('.checkout-step').forEach(s => {
       s.hidden = s.dataset.step !== name;
     });
+    const isAccess = name === 'access';
+    const summary = document.getElementById('checkoutSummary');
+    const sheet = document.querySelector('#checkoutModal .checkout-sheet');
+    if (summary) summary.hidden = isAccess;
+    if (sheet) sheet.classList.toggle('access-active', isAccess);
   }
 
   let _checkoutBound = false;
@@ -701,6 +710,31 @@
 
     document.querySelectorAll('.method-tab').forEach(t => {
       t.addEventListener('click', () => setMethod(t.dataset.method));
+    });
+
+    const accessForm = document.getElementById('accessForm');
+    const accessEmail = document.getElementById('accessEmail');
+    const accessNextBtn = document.getElementById('accessNextBtn');
+    const updateAccessButton = () => {
+      accessNextBtn.disabled = !accessEmail.value.trim();
+    };
+    accessEmail.addEventListener('input', updateAccessButton);
+    accessForm.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!CHECKOUT || accessNextBtn.disabled) return;
+
+      CHECKOUT.accessEmail = accessEmail.value.trim();
+      updateAccessButton();
+
+      if (CHECKOUT.gateway === 'nexuspag') {
+        showStep('pix-loading');
+        sendDeposit({ name: '', email: CHECKOUT.accessEmail, phone: '' });
+        return;
+      }
+
+      document.getElementById('payerEmail').value = CHECKOUT.accessEmail;
+      showStep('form');
+      setTimeout(() => document.getElementById('payerName').focus(), 80);
     });
 
     document.getElementById('checkoutForm').addEventListener('submit', submitCheckout);
