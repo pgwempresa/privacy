@@ -100,17 +100,17 @@
     const svgData = (svg) => 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
     const cover = svgData(`
       <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390">
-        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffbf86"/><stop offset=".52" stop-color="#f68d3d"/><stop offset="1" stop-color="#7b3f24"/></linearGradient></defs>
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#66C8FF"/><stop offset=".52" stop-color="#0091EA"/><stop offset="1" stop-color="#005B99"/></linearGradient></defs>
         <rect width="1200" height="390" fill="url(#g)"/><circle cx="1020" cy="70" r="230" fill="#fff" opacity=".12"/><circle cx="180" cy="420" r="300" fill="#fff" opacity=".09"/>
       </svg>`);
     const avatar = svgData(`
       <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
-        <defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd4ae"/><stop offset="1" stop-color="#f68d3d"/></linearGradient></defs>
+        <defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8AD7FF"/><stop offset="1" stop-color="#0091EA"/></linearGradient></defs>
         <rect width="300" height="300" rx="150" fill="url(#a)"/><text x="150" y="177" text-anchor="middle" font-family="Arial,sans-serif" font-size="92" font-weight="700" fill="#fff">AM</text>
       </svg>`);
     const post = svgData(`
       <svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">
-        <defs><linearGradient id="p" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#421f18"/><stop offset=".45" stop-color="#f68d3d"/><stop offset="1" stop-color="#ffd0a8"/></linearGradient></defs>
+        <defs><linearGradient id="p" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#003F69"/><stop offset=".45" stop-color="#0091EA"/><stop offset="1" stop-color="#8AD7FF"/></linearGradient></defs>
         <rect width="900" height="900" fill="url(#p)"/><circle cx="690" cy="230" r="250" fill="#fff" opacity=".16"/><circle cx="210" cy="760" r="320" fill="#fff" opacity=".1"/>
       </svg>`);
 
@@ -329,7 +329,7 @@
     document.getElementById('profileName').textContent = data.name || '';
     document.getElementById('profileUsername').textContent = data.username || '';
     document.getElementById('profileBio').textContent = data.bio || '';
-    document.title = (data.name ? data.name + ' · ' : '') + 'Privacy';
+    document.title = (data.name ? data.name + ' · ' : '') + 'OnlyFans';
 
     if (data.avatar) document.getElementById('profileAvatar').src = data.avatar;
     if (data.cover)  document.getElementById('profileCover').src = data.cover;

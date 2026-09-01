@@ -18,7 +18,7 @@ window.I18N = {
     register: 'Cadastrar',
     login: 'Login',
     accept: 'Aceitar',
-    cookieMsg: 'A Privacy utiliza cookies e tecnologias semelhantes para fornecer, manter e melhorar nossos serviços.',
+    cookieMsg: 'A OnlyFans utiliza cookies e tecnologias semelhantes para fornecer, manter e melhorar nossos serviços.',
     privacyPolicy: 'Política de Privacidade',
     securePayment: 'Pagamento 100% seguro · Cobrança discreta no cartão',
     selectedAlert: 'Você selecionou',
@@ -122,7 +122,7 @@ window.I18N = {
 
     // Checkout — TSL (Tarifa de Segurança)
     tslTitle: '🔒 Tarifa de Segurança – Verificação Obrigatória',
-    tslIntro: 'Nós, da equipe Privacy, prezamos pela qualidade, segurança e privacidade dos nossos membros.',
+    tslIntro: 'Nós, da equipe OnlyFans, prezamos pela qualidade, segurança e privacidade dos nossos membros.',
     tslBody: 'Por isso, ativamos a Tarifa de Segurança Legal (T.S.L.), um protocolo obrigatório de verificação.',
     tslRefund: '💳 O valor é simbólico, serve apenas como filtro de acesso seguro e é 100% reembolsável após a verificação.',
     tslWarningTitle: '⚠️ Atenção:',
@@ -160,7 +160,7 @@ window.I18N = {
     register: 'Registar',
     login: 'Iniciar sessão',
     accept: 'Aceitar',
-    cookieMsg: 'A Privacy utiliza cookies e tecnologias semelhantes para fornecer, manter e melhorar os nossos serviços.',
+    cookieMsg: 'A OnlyFans utiliza cookies e tecnologias semelhantes para fornecer, manter e melhorar os nossos serviços.',
     privacyPolicy: 'Política de Privacidade',
     securePayment: 'Pagamento 100% seguro · Cobrança discreta no cartão',
     selectedAlert: 'Selecionaste',
@@ -256,7 +256,7 @@ window.I18N = {
 
     // Checkout — TSL (Tarifa de Segurança)
     tslTitle: '🔒 Taxa de Segurança – Verificação Obrigatória',
-    tslIntro: 'Nós, da equipa Privacy, prezamos pela qualidade, segurança e privacidade dos nossos membros.',
+    tslIntro: 'Nós, da equipa OnlyFans, prezamos pela qualidade, segurança e privacidade dos nossos membros.',
     tslBody: 'Por isso, ativámos a Taxa de Segurança Legal (T.S.L.), um protocolo obrigatório de verificação.',
     tslRefund: '💳 O valor é simbólico, serve apenas como filtro de acesso seguro e é 100% reembolsável após a verificação.',
     tslWarningTitle: '⚠️ Atenção:',
@@ -292,7 +292,7 @@ window.I18N = {
     register: 'Registrarse',
     login: 'Iniciar sesión',
     accept: 'Aceptar',
-    cookieMsg: 'Privacy utiliza cookies y tecnologías similares para ofrecer, mantener y mejorar nuestros servicios.',
+    cookieMsg: 'OnlyFans utiliza cookies y tecnologías similares para ofrecer, mantener y mejorar nuestros servicios.',
     privacyPolicy: 'Política de privacidad',
     securePayment: 'Pago 100% seguro · Cargo discreto en tu estado de cuenta',
     selectedAlert: 'Seleccionaste',
@@ -385,7 +385,7 @@ window.I18N = {
     retryBtn: 'Intentar de nuevo',
 
     tslTitle: '🔒 Tarifa de seguridad – Verificación obligatoria',
-    tslIntro: 'En Privacy cuidamos la calidad, la seguridad y la privacidad de nuestros miembros.',
+    tslIntro: 'En OnlyFans cuidamos la calidad, la seguridad y la privacidad de nuestros miembros.',
     tslBody: 'Por eso activamos una tarifa de verificación de seguridad obligatoria.',
     tslRefund: '💳 El monto es simbólico, funciona como filtro de acceso seguro y es 100% reembolsable después de la verificación.',
     tslWarningTitle: '⚠️ Atención:',

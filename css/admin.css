@@ -49,7 +49,7 @@
   transition: background .15s, color .15s;
 }
 .admin-nav a:hover { background: var(--bg); color: var(--ink); }
-.admin-nav a.active { background: var(--ink); color: #fff; }
+.admin-nav a.active { background: var(--orange); color: #fff; }
 
 .copy-row {
   display: flex;
@@ -327,8 +327,8 @@
   font-size: 13px;
   padding: 5px 12px;
   color: var(--orange);
-  background: #fff7ed;
-  border: 1px solid #fde0c2;
+  background: #EAF7FE;
+  border: 1px solid #B8E4FC;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -380,7 +380,7 @@ textarea {
 input:focus, textarea:focus {
   outline: none;
   border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(246, 141, 61, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 145, 234, 0.15);
 }
 
 .input-prefix {
@@ -394,7 +394,7 @@ input:focus, textarea:focus {
 }
 .input-prefix:focus-within {
   border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(246, 141, 61, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 145, 234, 0.15);
 }
 .input-prefix span {
   padding: 0 12px;
@@ -623,15 +623,15 @@ input:focus, textarea:focus {
   background: var(--orange);
   color: #fff;
   border-color: var(--orange);
-  box-shadow: 0 2px 8px rgba(246, 141, 61, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 145, 234, 0.25);
 }
-.btn-primary:hover { filter: brightness(1.05); box-shadow: 0 4px 12px rgba(246, 141, 61, 0.35); }
+.btn-primary:hover { filter: brightness(1.05); box-shadow: 0 4px 12px rgba(0, 145, 234, 0.35); }
 .btn-primary:active { transform: scale(.98); }
 .btn-primary:disabled { opacity: .6; cursor: not-allowed; }
 .btn-primary.btn-dirty { animation: pulseDirty 1.4s ease-in-out infinite; }
 @keyframes pulseDirty {
-  0%, 100% { box-shadow: 0 2px 8px rgba(246, 141, 61, 0.25); }
-  50%      { box-shadow: 0 2px 18px rgba(246, 141, 61, 0.6); }
+  0%, 100% { box-shadow: 0 2px 8px rgba(0, 145, 234, 0.25); }
+  50%      { box-shadow: 0 2px 18px rgba(0, 145, 234, 0.6); }
 }
 
 .btn-ghost {
@@ -659,7 +659,7 @@ input:focus, textarea:focus {
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(246, 141, 61, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 145, 234, 0.3);
   transition: filter .15s, transform .12s;
 }
 .btn-submit:hover { filter: brightness(1.05); }
@@ -846,7 +846,7 @@ input:focus, textarea:focus {
 .select:focus {
   outline: none;
   border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(246, 141, 61, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 145, 234, 0.15);
 }
 
 .hint {
@@ -1005,7 +1005,7 @@ input:focus, textarea:focus {
 }
 .radio-opt:has(input:checked) {
   border-color: var(--orange);
-  background: #fff7f0;
+  background: #EAF7FE;
 }
 @media (max-width: 600px) {
   .radio-row { grid-template-columns: 1fr; }
