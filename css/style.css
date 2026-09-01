@@ -168,6 +168,19 @@ button { font-family: inherit; }
   align-items: center;
   justify-content: center;
   box-shadow: 0 3px 12px rgba(0, 67, 108, .08);
+  padding: 0;
+  cursor: pointer;
+  transition: color .16s, background .16s, border-color .16s, transform .12s, box-shadow .16s;
+}
+.profile-share-btn:hover {
+  background: #EAF7FE;
+  border-color: #8FD3F8;
+  box-shadow: 0 5px 16px rgba(0, 145, 234, .16);
+}
+.profile-share-btn:active { transform: scale(.92); }
+.profile-share-btn:focus-visible {
+  outline: 3px solid rgba(0, 145, 234, .2);
+  outline-offset: 2px;
 }
 
 /* ===== Profile body ===== */
@@ -522,10 +535,25 @@ button { font-family: inherit; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color .16s, background .16s, transform .12s;
 }
 .model-hud-home {
   color: var(--orange);
   background: #EAF7FE;
+}
+.model-hud-more { background: transparent; }
+.model-hud-icon:hover {
+  color: var(--orange);
+  background: #EAF7FE;
+}
+.model-hud-icon:active { transform: scale(.9); }
+.model-hud-icon:focus-visible {
+  outline: 3px solid rgba(0, 145, 234, .2);
+  outline-offset: 2px;
 }
 
 /* ===== Responsive ===== */
