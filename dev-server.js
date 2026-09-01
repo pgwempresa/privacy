@@ -233,7 +233,7 @@ function parseBody(raw, contentType = '') {
 function isPublicAsset(relative) {
   if (/^(admin|edit|integracoes|login|m)\.html$/.test(relative)) return true;
   if (/^(logo|onlyfans-logo)\.png$/.test(relative)) return true;
-  return /^(css|js)\/[A-Za-z0-9._/-]+$/.test(relative) && !relative.includes('..');
+  return /^(css|js|assets)\/[A-Za-z0-9._/-]+$/.test(relative) && !relative.includes('..');
 }
 
 function serveFile(relative, req, res) {

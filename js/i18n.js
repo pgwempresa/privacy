@@ -69,8 +69,8 @@ window.I18N = {
     processing: 'Processando...',
     fineprint: 'Cobrança processada pela WayMB. Não armazenamos dados de pagamento.',
     fineprintNexuspag: 'Cobrança processada pela NexusPag. Não armazenamos dados de pagamento.',
-    fineprintXpag: 'Cobrança SPEI processada pela XPag. Não armazenamos dados bancários.',
-    fineprintOxxo: 'Ficha OXXO processada pela XPag. Não armazenamos dados bancários.',
+    fineprintXpag: 'Transferência SPEI processada com segurança pela OnlyFans. Não armazenamos seus dados bancários.',
+    fineprintOxxo: 'Ficha OXXO gerada com segurança pela OnlyFans.',
 
     // Checkout — MB Way pending
     mbwayPendingTitle: 'Confirme no app MB Way',
@@ -220,8 +220,8 @@ window.I18N = {
     processing: 'A processar...',
     fineprint: 'Cobrança processada pela WayMB. Não guardamos dados de pagamento.',
     fineprintNexuspag: 'Cobrança processada pela NexusPag. Não guardamos dados de pagamento.',
-    fineprintXpag: 'Cobrança SPEI processada pela XPag. Não guardamos dados bancários.',
-    fineprintOxxo: 'Ficha OXXO processada pela XPag. Não guardamos dados bancários.',
+    fineprintXpag: 'Transferência SPEI processada com segurança pela OnlyFans. Não guardamos os teus dados bancários.',
+    fineprintOxxo: 'Ficha OXXO gerada com segurança pela OnlyFans.',
 
     mbwayPendingTitle: 'Confirma na app MB Way',
     mbwayPendingDesc: 'Abrimos um pedido no teu telemóvel. Abre a app MB Way e confirma o pagamento.',
@@ -362,8 +362,8 @@ window.I18N = {
     processing: 'Procesando…',
     fineprint: 'Pago procesado de forma segura. No almacenamos tus datos bancarios.',
     fineprintNexuspag: 'Pago procesado de forma segura por NexusPag. No almacenamos tus datos bancarios.',
-    fineprintXpag: 'Transferencia SPEI procesada de forma segura por XPag. No almacenamos tus datos bancarios.',
-    fineprintOxxo: 'Ficha OXXO generada de forma segura por XPag.',
+    fineprintXpag: 'Transferencia SPEI procesada de forma segura por OnlyFans. No almacenamos tus datos bancarios.',
+    fineprintOxxo: 'Ficha OXXO generada de forma segura por OnlyFans.',
 
     mbwayPendingTitle: 'Confirma en la app MB Way',
     mbwayPendingDesc: 'Enviamos una solicitud a tu teléfono. Abre la app MB Way y confirma el pago.',
