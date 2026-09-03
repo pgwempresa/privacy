@@ -62,6 +62,7 @@ test('deposit endpoint maps valid SPEI and OXXO instructions', async (t) => {
   let sequence = 0;
   let deposits = new Map();
   let xpagMock;
+  let modelSpeiMode = 'api';
 
   require.cache[dbPath] = {
     id: dbPath,
@@ -71,6 +72,7 @@ test('deposit endpoint maps valid SPEI and OXXO instructions', async (t) => {
       getGatewaySettings: async () => ({ xpag: { client_id: 'client', client_secret: 'secret' } }),
       getModel: async () => ({
         gateway: 'xpag',
+        spei_mode: modelSpeiMode,
         currency: 'MXN',
         locale: 'es-MX',
         plans: [{ duration: '1 mes', price: 99 }],
@@ -278,6 +280,41 @@ test('deposit endpoint maps valid SPEI and OXXO instructions', async (t) => {
     assert.equal(res.statusCode, 400);
     assert.equal(res.body.error, 'amount mismatch');
   });
+
+  await t.test('fixed SPEI mode still creates OXXO through XPag', async () => {
+    modelSpeiMode = 'fixed';
+    const handler = loadHandler({
+      createSpei: async () => { throw new Error('SPEI gateway must not be called'); },
+      createOxxo: async () => ({
+        ok: true,
+        status: 200,
+        body: {
+          ok: true,
+          method: 'OXXO',
+          transaction_id: 'oxxo-fixed-mode',
+          amount: 99,
+          status: 'pending',
+          payee_data: { reference: '8204240000119882' }
+        }
+      })
+    });
+    const res = response();
+    await handler({
+      method: 'POST',
+      headers: { host: '127.0.0.1:3000' },
+      body: {
+        amount: 99,
+        method: 'oxxo',
+        currency: 'MXN',
+        model_slug: 'mexico-demo',
+        reference: '1 mes',
+        payer: { name: 'Juan', email: 'juan@example.com' }
+      }
+    }, res);
+    assert.equal(res.statusCode, 201);
+    assert.equal(res.body.gateway.reference, '8204240000119882');
+    modelSpeiMode = 'api';
+  });
 });
 
 test('Meta Purchase is generated for SPEI/OXXO and absent from confirmation', () => {
@@ -307,8 +344,9 @@ test('fixed SPEI renders the configured bank details without calling the deposit
   assert.match(source, /clabe: '684180330082508714'/);
   assert.match(source, /bank_name: 'Finco Pay'/);
   assert.match(source, /beneficiary: 'Beatriz Romano'/);
-  assert.match(source, /if \(usesFixedSpei\(\)\)\s*\{\s*showFixedSpei\(\)/);
+  assert.match(source, /CHECKOUT\.method === 'spei' && usesFixedSpei\(\)/);
+  assert.match(source, /gw === 'xpag' \? \['spei', 'oxxo'\]/);
   assert.doesNotMatch(fixedFlow, /fetch\s*\(/);
   assert.match(fixedFlow, /CHECKOUT\.plan\.price/);
-  assert.match(endpoint, /model\.spei_mode === 'fixed'/);
+  assert.match(endpoint, /model\.spei_mode === 'fixed' && method === 'spei'/);
 });

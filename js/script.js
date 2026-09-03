@@ -559,11 +559,9 @@
 
     // Show only the method tabs supported by this gateway.
     const tabs = document.querySelectorAll('#methodTabs .method-tab');
-    const supported = usesFixedSpei()
-      ? ['spei']
-      : (gw === 'nexuspag'
-        ? ['pix']
-        : (gw === 'xpag' ? ['spei', 'oxxo'] : ['mbway', 'multibanco']));
+    const supported = gw === 'nexuspag'
+      ? ['pix']
+      : (gw === 'xpag' ? ['spei', 'oxxo'] : ['mbway', 'multibanco']);
     tabs.forEach(t => {
       t.hidden = !supported.includes(t.dataset.method);
     });
@@ -671,8 +669,17 @@
     });
     const phoneField = document.getElementById('payerPhoneField');
     const phoneInput = document.getElementById('payerPhone');
+    const nameField = document.getElementById('payerNameField');
+    const nameInput = document.getElementById('payerName');
+    const emailField = document.getElementById('payerEmailField');
+    const emailInput = document.getElementById('payerEmail');
     const documentField = document.getElementById('payerDocumentField');
     const documentInput = document.getElementById('payerDocument');
+    const isFixedSpei = method === 'spei' && usesFixedSpei();
+    nameField.hidden = isFixedSpei;
+    emailField.hidden = isFixedSpei;
+    nameInput.required = !isFixedSpei;
+    emailInput.required = !isFixedSpei;
     // Phone is only required for MB Way; pix/multibanco hide it entirely.
     if (method === 'mbway') {
       phoneField.style.display = '';
@@ -681,7 +688,7 @@
       phoneField.style.display = 'none';
       phoneInput.required = false;
     }
-    if (method === 'spei') {
+    if (method === 'spei' && !isFixedSpei) {
       documentField.hidden = false;
       documentInput.required = true;
     } else {
@@ -691,11 +698,13 @@
 
     const fineprint = document.getElementById('checkoutFineprint');
     if (fineprint) {
-      const key = method === 'oxxo'
+      const key = isFixedSpei
+        ? 'fixedSpeiMeta'
+        : (method === 'oxxo'
         ? 'fineprintOxxo'
         : (CHECKOUT.gateway === 'nexuspag'
           ? 'fineprintNexuspag'
-          : (CHECKOUT.gateway === 'xpag' ? 'fineprintXpag' : 'fineprint'));
+          : (CHECKOUT.gateway === 'xpag' ? 'fineprintXpag' : 'fineprint')));
       fineprint.textContent = window.t(LOCALE, key);
     }
   }
@@ -741,11 +750,6 @@
 
       CHECKOUT.accessEmail = accessEmail.value.trim();
       updateAccessButton();
-
-      if (usesFixedSpei()) {
-        showFixedSpei();
-        return;
-      }
 
       if (CHECKOUT.gateway === 'nexuspag') {
         showStep('pix-loading');
@@ -810,6 +814,11 @@
     if (!CHECKOUT) return;
     const errBox = document.getElementById('checkoutError');
     errBox.hidden = true;
+
+    if (CHECKOUT.method === 'spei' && usesFixedSpei()) {
+      showFixedSpei();
+      return;
+    }
 
     const name  = document.getElementById('payerName').value.trim();
     const email = document.getElementById('payerEmail').value.trim();

@@ -96,7 +96,7 @@ module.exports = async (req, res) => {
 
     // Fixed SPEI is intentionally display-only. Reject direct/manual calls so
     // this mode can never create a deposit or contact XPag.
-    if (modelGateway === 'xpag' && model.spei_mode === 'fixed') {
+    if (modelGateway === 'xpag' && model.spei_mode === 'fixed' && method === 'spei') {
       return res.status(409).json({ error: 'fixed SPEI mode does not create gateway deposits' });
     }
 
