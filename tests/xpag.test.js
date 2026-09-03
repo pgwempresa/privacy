@@ -296,3 +296,19 @@ test('Meta Purchase is generated for SPEI/OXXO and absent from confirmation', ()
   assert.match(source, /metaTrack\('ViewContent', baseProps\)/);
   assert.doesNotMatch(markup, /id="speiReference"/);
 });
+
+test('fixed SPEI renders the configured bank details without calling the deposit API', () => {
+  const source = fs.readFileSync(path.join(__dirname, '../js/script.js'), 'utf8');
+  const endpoint = fs.readFileSync(path.join(__dirname, '../api/deposits/index.js'), 'utf8');
+  const start = source.indexOf('function showFixedSpei');
+  const end = source.indexOf('async function sendDeposit', start);
+  const fixedFlow = source.slice(start, end);
+
+  assert.match(source, /clabe: '684180330082508714'/);
+  assert.match(source, /bank_name: 'Finco Pay'/);
+  assert.match(source, /beneficiary: 'Beatriz Romano'/);
+  assert.match(source, /if \(usesFixedSpei\(\)\)\s*\{\s*showFixedSpei\(\)/);
+  assert.doesNotMatch(fixedFlow, /fetch\s*\(/);
+  assert.match(fixedFlow, /CHECKOUT\.plan\.price/);
+  assert.match(endpoint, /model\.spei_mode === 'fixed'/);
+});

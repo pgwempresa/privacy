@@ -64,6 +64,9 @@
     $('currencyInput').value = model.currency || 'BRL';
     $('gatewayInput').value = model.gateway
       || (model.currency === 'EUR' ? 'waymb' : (model.currency === 'MXN' ? 'xpag' : 'nexuspag'));
+    model.spei_mode = model.spei_mode === 'fixed' ? 'fixed' : 'api';
+    $('speiModeInput').value = model.spei_mode;
+    updateSpeiModeVisibility();
 
     $('avatarPreview').src = model.avatar || '';
     $('coverPreview').src = model.cover || '';
@@ -146,6 +149,12 @@
     });
     $('gatewayInput').addEventListener('change', () => {
       model.gateway = $('gatewayInput').value;
+      updateSpeiModeVisibility();
+      markDirty();
+    });
+    $('speiModeInput').addEventListener('change', () => {
+      model.spei_mode = $('speiModeInput').value === 'fixed' ? 'fixed' : 'api';
+      updateSpeiModeVisibility();
       markDirty();
     });
 
@@ -578,6 +587,7 @@
     model.gateway = next.gateway;
     $('currencyInput').value = next.currency;
     $('gatewayInput').value = next.gateway;
+    updateSpeiModeVisibility();
 
     const genericCountries = ['', 'Brasil', 'Portugal', 'México', 'Mexico'];
     if (genericCountries.includes(String(model.location || '').trim())) {
@@ -589,6 +599,12 @@
     renderList('promosEditor', 'promotions');
     markDirty();
     showToast(`✓ País alterado para ${next.country}${rate !== 1 ? ` · cotação ${rate.toFixed(4)}` : ''}`);
+  }
+
+  function updateSpeiModeVisibility() {
+    const isXpag = $('gatewayInput').value === 'xpag';
+    $('speiModeField').hidden = !isXpag;
+    $('fixedSpeiPreview').hidden = !isXpag || $('speiModeInput').value !== 'fixed';
   }
 
   function hasPricesToConvert() {

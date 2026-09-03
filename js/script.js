@@ -510,7 +510,17 @@
     return MODEL.currency === 'EUR' ? 'waymb' : (MODEL.currency === 'MXN' ? 'xpag' : 'nexuspag');
   }
 
+  function usesFixedSpei() {
+    return currentGateway() === 'xpag' && MODEL && MODEL.spei_mode === 'fixed';
+  }
+
   // ===================== Checkout =====================
+
+  const FIXED_SPEI = Object.freeze({
+    clabe: '684180330082508714',
+    bank_name: 'Finco Pay',
+    beneficiary: 'Beatriz Romano'
+  });
 
   let CHECKOUT = null; // { plan, method, depositId, pollTimer }
 
@@ -549,14 +559,20 @@
 
     // Show only the method tabs supported by this gateway.
     const tabs = document.querySelectorAll('#methodTabs .method-tab');
-    const supported = gw === 'nexuspag'
-      ? ['pix']
-      : (gw === 'xpag' ? ['spei', 'oxxo'] : ['mbway', 'multibanco']);
+    const supported = usesFixedSpei()
+      ? ['spei']
+      : (gw === 'nexuspag'
+        ? ['pix']
+        : (gw === 'xpag' ? ['spei', 'oxxo'] : ['mbway', 'multibanco']));
     tabs.forEach(t => {
       t.hidden = !supported.includes(t.dataset.method);
     });
 
     setMethod(defaultMethod);
+    document.getElementById('speiMeta').textContent = window.t(
+      LOCALE,
+      usesFixedSpei() ? 'fixedSpeiMeta' : 'speiMeta'
+    );
 
     const modal = document.getElementById('checkoutModal');
     modal.hidden = false;
@@ -726,6 +742,11 @@
       CHECKOUT.accessEmail = accessEmail.value.trim();
       updateAccessButton();
 
+      if (usesFixedSpei()) {
+        showFixedSpei();
+        return;
+      }
+
       if (CHECKOUT.gateway === 'nexuspag') {
         showStep('pix-loading');
         sendDeposit({ name: '', email: CHECKOUT.accessEmail, phone: '' });
@@ -817,6 +838,27 @@
     }
 
     await sendDeposit({ name, email, phone, document: documentId });
+  }
+
+  // The fixed SPEI option is display-only: it never creates a deposit or
+  // contacts XPag. The selected plan still determines the amount shown.
+  function showFixedSpei() {
+    if (!CHECKOUT) return;
+    CHECKOUT.method = 'spei';
+    CHECKOUT.depositId = null;
+
+    document.getElementById('speiClabe').textContent = FIXED_SPEI.clabe;
+    document.getElementById('speiBank').textContent = FIXED_SPEI.bank_name;
+    document.getElementById('speiBeneficiary').textContent = FIXED_SPEI.beneficiary;
+    document.getElementById('speiAmount').textContent = window.formatPrice(CHECKOUT.plan.price, CURRENCY);
+    document.getElementById('speiMeta').textContent = window.t(LOCALE, 'fixedSpeiMeta');
+
+    const props = checkoutProps(CHECKOUT.plan);
+    props.payment_method = 'spei';
+    metaTrack('AddPaymentInfo', props);
+    tiktokTrack('AddPaymentInfo', props);
+    showStep('spei-pending');
+    trackMetaPurchaseOnGeneration('spei');
   }
 
   // Posts /api/deposits and routes to the right pending step. Called from the

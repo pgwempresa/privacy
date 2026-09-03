@@ -105,6 +105,7 @@ window.I18N = {
     speiBeneficiary: 'Beneficiário',
     speiAmount: 'Valor',
     speiMeta: 'Esta página é atualizada automaticamente quando o pagamento for confirmado.',
+    fixedSpeiMeta: 'Transfira exatamente o valor exibido. Estes dados bancários são fixos para todos os planos.',
     speiDocumentRequired: 'Informe seu CURP ou RFC para gerar a cobrança SPEI.',
 
     // Checkout — OXXO pending
@@ -253,6 +254,7 @@ window.I18N = {
     speiBeneficiary: 'Beneficiário',
     speiAmount: 'Valor',
     speiMeta: 'Esta página é atualizada automaticamente quando o pagamento for confirmado.',
+    fixedSpeiMeta: 'Transfere exatamente o valor apresentado. Estes dados bancários são fixos para todos os planos.',
     speiDocumentRequired: 'Indica o teu CURP ou RFC para gerar a cobrança SPEI.',
 
     oxxoTitle: 'Paga em dinheiro no OXXO',
@@ -394,6 +396,7 @@ window.I18N = {
     speiBeneficiary: 'Beneficiario',
     speiAmount: 'Monto',
     speiMeta: 'Esta página se actualizará automáticamente cuando se confirme el pago.',
+    fixedSpeiMeta: 'Transfiere exactamente el monto mostrado. Estos datos bancarios son fijos para todos los planes.',
     speiDocumentRequired: 'Ingresa tu CURP o RFC para generar el cobro SPEI.',
 
     oxxoTitle: 'Paga en efectivo en OXXO',

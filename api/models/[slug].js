@@ -100,6 +100,7 @@ function sanitizeModel(m) {
     locale: allowedLocales.includes(m.locale) ? m.locale : 'pt-BR',
     currency: allowedCurrencies.includes(m.currency) ? m.currency : 'BRL',
     gateway: gw,
+    spei_mode: m.spei_mode === 'fixed' ? 'fixed' : 'api',
     delivery: sanitizeDelivery(m.delivery),
     cloaker: sanitizeCloaker(m.cloaker),
     tsl: sanitizeTsl(m.tsl),

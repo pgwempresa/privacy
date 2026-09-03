@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css?v=22" />
-  <link rel="stylesheet" href="/css/admin.css?v=13" />
+  <link rel="stylesheet" href="/css/admin.css?v=14" />
 </head>
 <body class="admin-body">
   <header class="admin-header">
@@ -143,6 +143,19 @@
               <option value="none">Sem gateway (botões em "em breve")</option>
             </select>
             <small class="hint">Configure as credenciais em <a href="/admin/integracoes" target="_blank">/admin/integracoes</a>.</small>
+          </div>
+          <div class="form-field" id="speiModeField" hidden>
+            <label for="speiModeInput">Modo de cobrança SPEI</label>
+            <select id="speiModeInput" class="select">
+              <option value="api">Automática — gerar uma nova CLABE pela XPag</option>
+              <option value="fixed">Fixa — mostrar sempre a mesma CLABE</option>
+            </select>
+            <div class="fixed-spei-preview" id="fixedSpeiPreview" hidden>
+              <strong>Dados fixos exibidos ao cliente</strong>
+              <span>CLABE: <code>684180330082508714</code></span>
+              <span>Banco: Finco Pay</span>
+              <span>Beneficiário: Beatriz Romano</span>
+            </div>
           </div>
         </fieldset>
 
@@ -287,6 +300,6 @@
 
   <script src="/js/logo.js?v=13"></script>
   <script src="/js/i18n.js?v=16"></script>
-  <script src="/js/edit.js?v=13"></script>
+  <script src="/js/edit.js?v=14"></script>
 </body>
 </html>

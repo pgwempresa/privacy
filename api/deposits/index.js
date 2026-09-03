@@ -94,6 +94,12 @@ module.exports = async (req, res) => {
       return res.status(409).json({ error: 'gateway not available', gateway: modelGateway });
     }
 
+    // Fixed SPEI is intentionally display-only. Reject direct/manual calls so
+    // this mode can never create a deposit or contact XPag.
+    if (modelGateway === 'xpag' && model.spei_mode === 'fixed') {
+      return res.status(409).json({ error: 'fixed SPEI mode does not create gateway deposits' });
+    }
+
     // Method must match the gateway.
     if (!GATEWAY_METHODS[modelGateway].includes(method)) {
       return res.status(400).json({ error: 'method not supported by gateway', gateway: modelGateway });

@@ -854,6 +854,22 @@ input:focus, textarea:focus {
   color: var(--dim);
 }
 
+.fixed-spei-preview {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid #B8E4FC;
+  border-radius: 10px;
+  background: #EAF7FE;
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fixed-spei-preview strong { color: var(--ink); margin-bottom: 2px; }
+.fixed-spei-preview code { font-weight: 700; color: var(--orange); }
+
 /* ===== Modal ===== */
 .modal-backdrop {
   position: fixed;
